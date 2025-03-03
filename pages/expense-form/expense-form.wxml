@@ -1,0 +1,71 @@
+<!-- 添加/编辑消费记录页面 -->
+<view class="container">
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading">
+    <text>加载中...</text>
+  </view>
+
+  <!-- 表单内容 -->
+  <view wx:else class="form-content">
+    <form bindsubmit="onSubmit">
+      <!-- 标题输入 -->
+      <view class="form-item">
+        <text class="label">标题</text>
+        <input class="input" name="title" value="{{formData.title}}" placeholder="请输入消费标题" />
+      </view>
+
+      <!-- 金额输入 -->
+      <view class="form-item">
+        <text class="label">金额</text>
+        <input class="input" type="digit" name="amount" value="{{formData.amount}}" placeholder="请输入消费金额" />
+      </view>
+
+      <!-- 日期选择 -->
+      <view class="form-item">
+        <text class="label">日期</text>
+        <picker mode="date" value="{{formData.date}}" bindchange="onDateChange">
+          <view class="picker">
+            {{formData.date || '请选择日期'}}
+          </view>
+        </picker>
+      </view>
+
+      <!-- 支付者选择 -->
+      <view class="form-item">
+        <text class="label">支付者</text>
+        <picker range="{{members}}" range-key="nickName" value="{{payerIndex}}" bindchange="onPayerChange">
+          <view class="picker">
+            {{members[payerIndex].nickName || '请选择支付者'}}
+          </view>
+        </picker>
+      </view>
+
+      <!-- 分摊成员选择 -->
+      <view class="form-item">
+        <text class="label">分摊成员</text>
+        <view class="member-list">
+          <view class="member" 
+                wx:for="{{members}}" 
+                wx:key="userId"
+                bindtap="onToggleMember"
+                data-index="{{index}}"
+                style="opacity: {{item.selected ? 1 : 0.5}}">
+            <image class="avatar" src="{{item.avatarUrl}}"></image>
+            <text class="nickname">{{item.nickName}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 备注输入 -->
+      <view class="form-item">
+        <text class="label">备注</text>
+        <textarea class="textarea" name="remark" value="{{formData.remark}}" placeholder="请输入备注信息（选填）" />
+      </view>
+
+      <!-- 提交按钮 -->
+      <view class="form-actions">
+        <button class="submit-btn" form-type="submit">保存</button>
+      </view>
+    </form>
+  </view>
+</view>

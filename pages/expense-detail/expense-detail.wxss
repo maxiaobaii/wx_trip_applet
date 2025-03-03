@@ -1,0 +1,138 @@
+/* 消费记录详情页面样式 */
+.container {
+  padding: 20rpx;
+}
+
+.loading {
+  text-align: center;
+  padding: 40rpx;
+  color: #999;
+}
+
+/* 消费记录信息样式 */
+.expense-info {
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 20rpx;
+}
+
+.header {
+  margin-bottom: 30rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.date {
+  font-size: 28rpx;
+  color: #666;
+}
+
+/* 金额信息样式 */
+.amount-info {
+  background: #f8f8f8;
+  padding: 20rpx;
+  border-radius: 8rpx;
+  margin-bottom: 30rpx;
+}
+
+.label {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.amount {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #ff4d4f;
+}
+
+/* 支付者信息样式 */
+.payer-info {
+  margin-bottom: 30rpx;
+}
+
+.payer {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 10rpx;
+}
+
+.avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+
+.nickname {
+  font-size: 28rpx;
+  color: #333;
+}
+
+/* 分摊成员列表样式 */
+.split-info {
+  margin-bottom: 30rpx;
+}
+
+.member-list {
+  margin-top: 20rpx;
+}
+
+.member {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 10rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+
+.member:last-child {
+  border-bottom: none;
+}
+
+.split-amount {
+  margin-left: auto;
+  font-size: 28rpx;
+  color: #ff4d4f;
+}
+
+/* 备注信息样式 */
+.remark-info {
+  margin-bottom: 30rpx;
+}
+
+.remark {
+  font-size: 28rpx;
+  color: #666;
+  margin-top: 10rpx;
+}
+
+/* 操作按钮样式 */
+.actions {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 40rpx;
+}
+
+.edit-btn, .delete-btn {
+  flex: 1;
+  font-size: 32rpx;
+  padding: 20rpx;
+  border-radius: 8rpx;
+}
+
+.edit-btn {
+  background: #1890ff;
+  color: #fff;
+}
+
+.delete-btn {
+  background: #ff4d4f;
+  color: #fff;
+}

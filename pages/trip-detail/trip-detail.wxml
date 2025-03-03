@@ -1,0 +1,65 @@
+<!-- 账本详情页面 -->
+<view class="container">
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading">
+    <text>加载中...</text>
+  </view>
+
+  <!-- 账本信息 -->
+  <view wx:else class="trip-info">
+    <view class="header">
+      <view class="title">{{tripInfo.title}}</view>
+      <view class="date">{{tripInfo.date}}</view>
+    </view>
+
+    <!-- 总费用统计 -->
+    <view class="total-amount">
+      <text class="label">总费用</text>
+      <text class="amount">¥{{tripInfo.totalAmount}}</text>
+    </view>
+
+    <!-- 成员列表 -->
+    <view class="members">
+      <text class="label">参与成员</text>
+      <view class="member-list">
+        <view class="member" wx:for="{{tripInfo.members}}" wx:key="userId">
+          <image class="avatar" src="{{item.avatarUrl}}"></image>
+          <text class="nickname">{{item.nickName}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 消费记录列表 -->
+    <view class="expenses">
+      <view class="expenses-header">
+        <text class="label">消费记录</text>
+        <button class="add-btn" bindtap="onAddExpense">添加消费</button>
+      </view>
+      
+      <view class="expense-list">
+        <view wx:if="{{expenses.length === 0}}" class="empty">
+          <text>暂无消费记录</text>
+        </view>
+        <view wx:else>
+          <view class="expense-item" 
+                wx:for="{{expenses}}" 
+                wx:key="_id"
+                bindtap="onViewExpense"
+                data-id="{{item._id}}">
+            <view class="expense-info">
+              <text class="expense-title">{{item.title}}</text>
+              <text class="expense-date">{{item.date}}</text>
+            </view>
+            <view class="expense-amount">¥{{item.amount}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="actions">
+      <button class="edit-btn" bindtap="onEditTrip">编辑账本</button>
+      <button class="delete-btn" bindtap="onDeleteTrip">删除账本</button>
+    </view>
+  </view>
+</view>

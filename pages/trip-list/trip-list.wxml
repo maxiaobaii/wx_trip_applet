@@ -1,0 +1,47 @@
+<!-- 账本列表页面 -->
+<view class="container">
+  <!-- 用户信息区域 -->
+  <view class="user-info">
+    <view wx:if="{{isLoggedIn}}" class="user-header">
+      <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
+      <text class="nickname">{{userInfo.nickName}}</text>
+    </view>
+    <view wx:else class="login-btn-wrap">
+      <button class="login-btn" bindtap="onLogin">微信登录</button>
+    </view>
+  </view>
+
+  <!-- 账本列表 -->
+  <view class="trip-list">
+    <view class="list-header">
+      <text class="title">我的账本</text>
+      <button class="create-btn" bindtap="onCreateTrip">新建账本</button>
+    </view>
+
+    <!-- 加载状态 -->
+    <view wx:if="{{loading}}" class="loading">
+      <text>加载中...</text>
+    </view>
+
+    <!-- 空状态 -->
+    <view wx:elif="{{trips.length === 0}}" class="empty">
+      <text>暂无账本</text>
+      <text class="tip">点击右上角按钮新建账本</text>
+    </view>
+
+    <!-- 账本列表 -->
+    <view wx:else class="list-content">
+      <view class="trip-item"
+            wx:for="{{trips}}"
+            wx:key="_id"
+            bindtap="onViewTrip"
+            data-id="{{item._id}}">
+        <view class="trip-info">
+          <text class="trip-title">{{item.title}}</text>
+          <text class="trip-date">{{item.date}}</text>
+        </view>
+        <view class="trip-amount">¥{{item.totalAmount}}</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,54 @@
+<!-- 消费记录详情页面 -->
+<view class="container">
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading">
+    <text>加载中...</text>
+  </view>
+
+  <!-- 消费记录详情 -->
+  <view wx:else class="expense-info">
+    <view class="header">
+      <view class="title">{{expenseInfo.title}}</view>
+      <view class="date">{{expenseInfo.date}}</view>
+    </view>
+
+    <!-- 金额信息 -->
+    <view class="amount-info">
+      <text class="label">消费金额</text>
+      <text class="amount">¥{{expenseInfo.amount}}</text>
+    </view>
+
+    <!-- 支付者信息 -->
+    <view class="payer-info">
+      <text class="label">支付者</text>
+      <view class="payer">
+        <image class="avatar" src="{{expenseInfo.payer.avatarUrl}}"></image>
+        <text class="nickname">{{expenseInfo.payer.nickName}}</text>
+      </view>
+    </view>
+
+    <!-- 分摊成员 -->
+    <view class="split-info">
+      <text class="label">分摊成员</text>
+      <view class="member-list">
+        <view class="member" wx:for="{{expenseInfo.splitMembers}}" wx:key="userId">
+          <image class="avatar" src="{{item.avatarUrl}}"></image>
+          <text class="nickname">{{item.nickName}}</text>
+          <text class="split-amount">¥{{item.splitAmount}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 备注信息 -->
+    <view class="remark-info" wx:if="{{expenseInfo.remark}}">
+      <text class="label">备注</text>
+      <text class="remark">{{expenseInfo.remark}}</text>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="actions">
+      <button class="edit-btn" bindtap="onEditExpense">编辑</button>
+      <button class="delete-btn" bindtap="onDeleteExpense">删除</button>
+    </view>
+  </view>
+</view>

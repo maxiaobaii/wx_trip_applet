@@ -1,0 +1,7 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="title">欢迎使用微信小程序</view>
+  <view class="content">
+    <text>这是一个基础的微信小程序模板</text>
+  </view>
+</view>
