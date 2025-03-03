@@ -1,5 +1,6 @@
 <!-- 账本列表页面 -->
 <view class="container">
+  <button wx:if="{{isLoggedIn}}" class="logout-btn" bindtap="handleLogout">退出登录</button>
   <!-- 用户信息区域 -->
   <view class="user-info">
     <view wx:if="{{isLoggedIn}}" class="user-header">
@@ -7,14 +8,21 @@
       <text class="nickname">{{userInfo.nickName}}</text>
     </view>
     <view wx:else class="login-btn-wrap">
-      <button class="login-btn" bindtap="onLogin">微信登录</button>
+      <!-- 用户未登录时显示 -->
+      <view wx:if="{{!isLoggedIn}}" class="login-container">
+        <button class="avatar-wrapper" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+          选择头像
+        </button>
+        <input type="nickname" class="nickname-input" placeholder="请输入昵称" bindchange="onInputNickname" />
+        <button type="primary" bindtap="onLogin">登录</button>
+      </view>
     </view>
   </view>
 
   <!-- 账本列表 -->
   <view class="trip-list">
     <view class="list-header">
-      <text class="title">我的账本</text>
+      <!-- <text class="title">我的账本</text> -->
       <button class="create-btn" bindtap="onCreateTrip">新建账本</button>
     </view>
 

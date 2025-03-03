@@ -1,7 +1,7 @@
 // 账本数据模型
 const db = wx.cloud.database()
 const tripCollection = db.collection('trips')
-const expenseCollection = db.collection('expenses')
+const expenseCollection = db.collection('`expenses`')
 const _ = db.command
 
 // 创建新账本

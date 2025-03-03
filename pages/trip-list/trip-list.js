@@ -9,45 +9,128 @@ Page({
     isLoggedIn: false,
     trips: [],
     loading: true
+//     tempUserInfo: {
+//       avatarUrl: '',
+//       nickName: ''
+//     }
   },
 
-  onLoad() {
-    this.checkLoginStatus()
-  },
+  // 处理选择头像事件
+//   onChooseAvatar(e) {
+//     const { avatarUrl } = e.detail
+//     this.setData({
+     //  'tempUserInfo.avatarUrl': avatarUrl
+//     })
+//   },
 
-  // 检查登录状态
-  checkLoginStatus() {
-    const { userInfo, isLoggedIn } = app.globalData
+  // 处理输入昵称事件
+  onInputNickname(e) {
+    const nickName = e.detail.value
     this.setData({
-      userInfo,
-      isLoggedIn
+      'tempUserInfo.nickName': nickName
     })
-
-    if (isLoggedIn) {
-      this.loadTripList()
-    } else {
-      this.setData({ loading: false })
-    }
   },
 
   // 用户登录
-  async onLogin() {
+//   `async onLogin() {
+//     if (!this.data.tempUserInfo.avatarUrl || !this.data.tempUserInfo.nickName) {
+//       wx.showToast({
+//         title: '请选择头像并输入昵称',
+//         icon: 'none'
+//       })
+//       return
+//     }
+
+//     try {
+//       wx.showLoading({ title: '登录中...' })
+      
+//       // 使用用户选择的头像和输入的昵称
+//       const userInfo = {
+//         avatarUrl: this.data.tempUserInfo.avatarUrl,
+//         nickName: this.data.tempUserInfo.nickName
+//       }
+      
+//       // 保存用户信息
+//       await userModel.saveUserInfo(userInfo)
+      
+//       // 更新全局数据
+//       app.globalData.userInfo = userInfo
+//       app.globalData.isLoggedIn = true
+      
+//       // 更新页面状态
+//       this.setData({
+//         userInfo,
+//         isLoggedIn: true
+//       })
+      
+//       wx.hideLoading()
+      
+//       // 加载账本列表
+//       this.loadTripList()
+//     } catch (error) {
+//       wx.hideLoading()
+//       console.error('登录失败：', error)
+//       wx.showToast({
+//         title: '登录失败，请重试',
+//         icon: 'none'
+//       })
+//     }
+//   },`
+  async onLogin(e) {
+    if (!e || !e.type) {
+      console.error('onLogin必须由用户点击事件触发')
+      return
+    }
+    console.log('触发微信授权登录弹窗')
     try {
-      const userInfo = await app.login()
+      wx.showLoading({ title: '登录中...' })
+      
+      // 使用wx.getUserProfile获取用户信息
+      const userProfileRes = await new Promise((resolve, reject) => {
+        wx.getUserProfile({
+          desc: '用于完善会员资料',
+          lang: 'zh_CN',
+          success: resolve,
+          fail: reject
+        })
+      })
+      
+      const userInfo = userProfileRes.userInfo
+      
+      // 保存用户信息
+      await userModel.saveUserInfo(userInfo)
+      
+      // 更新全局数据
+      app.globalData.userInfo = userInfo
+      app.globalData.isLoggedIn = true
+      app.updateUserInfo(userInfo);
+      
+      // 更新页面状态
       this.setData({
         userInfo,
         isLoggedIn: true
       })
+      
+      wx.hideLoading()
+      
+      // 加载账本列表
       this.loadTripList()
+      
+      wx.showToast({
+        title: '登录成功',
+        icon: 'success',
+        duration: 2000
+      })
     } catch (error) {
+      wx.hideLoading()
       console.error('登录失败：', error)
       wx.showToast({
-        title: '登录失败',
-        icon: 'error'
+        title: '登录失败，请重试',
+        icon: 'none',
+        duration: 2000
       })
     }
   },
-
   // 加载账本列表
   async loadTripList() {
     try {
@@ -66,7 +149,16 @@ Page({
       this.setData({ loading: false })
     }
   },
-
+  // 处理退出登录
+  handleLogout() {
+    const userModel = require('../../models/user.js')
+    userModel.clearUserInfo()
+    this.setData({
+      userInfo: null,
+      isLoggedIn: false,
+      trips: []
+    })
+  },
   // 创建新账本
   onCreateTrip() {
     if (!this.data.isLoggedIn) {

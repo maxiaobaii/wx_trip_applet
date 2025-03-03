@@ -1,11 +1,11 @@
-const userModel = require('./models/user')
-
 // 初始化云开发环境
 wx.cloud.init({
-  env: 'cloud1-8g2gxj0v94e7d0c6',
-  traceUser: true
+  env: 'cloudbase-1g1rzwmkda1c47e9',
+  traceUser: true,
+  timeout: 15000 // 设置更长的超时时间
 })
 
+const userModel = require('./models/user.js')
 App({
   onLaunch() {
     // 检查用户登录状态
@@ -38,5 +38,9 @@ App({
       console.error('登录失败：', error)
       throw error
     }
-  }
+  },
+  updateUserInfo(userInfo) {
+     this.globalData.userInfo = userInfo;
+     this.globalData.isLoggedIn = !!userInfo;
+   }
 })

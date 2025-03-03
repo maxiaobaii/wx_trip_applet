@@ -1,4 +1,5 @@
-// 云开发数据库模型定义
+// 云开发数据库实例
+const db = wx.cloud.database()
 
 // 用户表结构
 const userSchema = {
@@ -38,6 +39,7 @@ const expenseSchema = {
 }
 
 module.exports = {
+  db,
   userSchema,
   tripSchema,
   expenseSchema

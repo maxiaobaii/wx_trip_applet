@@ -39,12 +39,13 @@
         }
     },
     "compileType": "miniprogram",
-    "libVersion": "2.19.4",
-    "appid": "wx00c31295c3f5a7ac",
+    "libVersion": "3.0.2",
+    "appid": "wx0cd46dba55cc5953",
     "projectname": "vx_applet",
     "condition": {},
     "editorSetting": {
         "tabIndent": "insertSpaces",
         "tabSize": 4
-    }
+    },
+    "cloudfunctionTemplateRoot": "cloudfunctionTemplate/"
 }
